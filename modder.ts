@@ -119,7 +119,7 @@ Il2Cpp.perform(() => {
         var unityaction = unitycor.class("UnityEngine.Events.UnityAction");
 
         // load menu
-        var menu = instantiate1.invoke(new Il2Cpp.Object(abloadasset.call(assetBundle, Memory.allocUtf8String("ModSettingsMenu"), gameobject.type.handle)));
+        var menu = instantiate1.inflate(gameobject).invoke(new Il2Cpp.Object(abloadasset.call(assetBundle, Memory.allocUtf8String("ModSettingsMenu"), gameobject.type.handle)));
         
         menu.method("setActive").invoke(false);
 
@@ -147,8 +147,8 @@ Il2Cpp.perform(() => {
         console.log("Called");
         if (assetBundle == null) {
             fs.writeFileSync(unitycor.class("UnityEngine.Application").method<Il2Cpp.String>("get_persistentDataPath").invoke().content + "/dcmlassets", new DataView(new Int8Array(ab.dcmlassets).buffer));
-            assetBundle = abloadfromfile.call(null, Memory.allocUtf8String(unitycor.class("UnityEngine.Application").method<Il2Cpp.String>("get_persistentDataPath").invoke().content + "/dcmlassets"), 0 ,0);
-
+            assetBundle = abloadfromfile(Memory.allocUtf8String(unitycor.class("UnityEngine.Application").method<Il2Cpp.String>("get_persistentDataPath").invoke().content + "/dcmlassets"), 0 ,0);
+            console.log("assetbundle loaded");
         }
         EditMainMenu();
     };
