@@ -7,9 +7,20 @@ Il2Cpp.perform(() => {
 
     var unityui = Il2Cpp.domain.assembly("UnityEngine.UI").image;
 
+    var abloadfrommemory = new NativeFunction(Il2Cpp.api.resolveInternalCall(Memory.allocUtf8String("UnityEngine.AssetBundle::LoadFromMemory_Internal")), "pointer", ["pointer"]);
+    var abloadasset = new NativeFunction(Il2Cpp.api.resolveInternalCall(Memory.allocUtf8String("UnityEngine.AssetBundle::LoadAsset_Internal(System.String,System.Type)")), "pointer", ["pointer", "pointer"]);
+    
+    
+    var dcmlassets = Memory.alloc(ab.dcmlassets.length);
+    dcmlassets.writeByteArray(ab.dcmlassets);
+    
+
+    var assetBundle: NativePointer | null = null;
 
 
     function EditMainMenu() {
+
+        
 
         var gameobject = unitycor.class("UnityEngine.GameObject");
         var find = gameobject.method<Il2Cpp.Object>("Find");
@@ -34,6 +45,7 @@ Il2Cpp.perform(() => {
 
         var uo = unitycor.class("UnityEngine.Object");
         var instantiate2 = uo.method<Il2Cpp.Object>("Instantiate", 2);
+        var instantiate1 = uo.method<Il2Cpp.Object>("Instantiate", 1);
         var destroy = uo.method("Destroy", 1);
 
 
@@ -104,9 +116,16 @@ Il2Cpp.perform(() => {
 
 
         var unityaction = unitycor.class("UnityEngine.Events.UnityAction");
+
+        // load menu
+        var menu = instantiate1.invoke(new Il2Cpp.Object(abloadasset.call(assetBundle, Memory.allocUtf8String("ModSettingsMenu"), gameobject.type.handle)));
+        
+        menu.method("setActive").invoke(false);
+
         var onClickButton = Il2Cpp.delegate(unityaction, () => {
             var demoManager = il2cpp.class("DemoManager");
             find.invoke(Il2Cpp.string("Demo manager")).method<Il2Cpp.Object>("GetComponent", 0).inflate(demoManager).invoke().field<Il2Cpp.Object>("ButtonSound").value.method("Play", 0).invoke();
+            menu.method("setActive").invoke(true);
         });
 
         setbuttoncmp.method<Il2Cpp.Object>("get_onClick").invoke().method("AddListener").invoke(onClickButton);
@@ -125,6 +144,9 @@ Il2Cpp.perform(() => {
         console.log("Call Original");
         var org = this.method("Start").invoke();
         console.log("Called");
+        if (assetBundle == null) {
+            assetBundle = abloadfrommemory.call(null, dcmlassets);
+        }
         EditMainMenu();
     };
 })
