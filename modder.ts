@@ -1,5 +1,7 @@
 import "frida-il2cpp-bridge"
 import * as ab from "./dcmlassets.js";
+import * as fs from "frida-fs";
+
 
 Il2Cpp.perform(() => {
     var il2cpp = Il2Cpp.domain.assembly("Assembly-CSharp").image;
@@ -7,12 +9,11 @@ Il2Cpp.perform(() => {
 
     var unityui = Il2Cpp.domain.assembly("UnityEngine.UI").image;
 
-    var abloadfrommemory = new NativeFunction(Il2Cpp.api.resolveInternalCall(Memory.allocUtf8String("UnityEngine.AssetBundle::LoadFromMemory_Internal")), "pointer", ["pointer"]);
+    var abloadfromfile = new NativeFunction(Il2Cpp.api.resolveInternalCall(Memory.allocUtf8String("UnityEngine.AssetBundle::LoadFromFile_Internal(System.String,System.UInt32,System.UInt64)")), "pointer", ["pointer", "uint32", "uint64"]);
     var abloadasset = new NativeFunction(Il2Cpp.api.resolveInternalCall(Memory.allocUtf8String("UnityEngine.AssetBundle::LoadAsset_Internal(System.String,System.Type)")), "pointer", ["pointer", "pointer"]);
     
     
-    var dcmlassets = Memory.alloc(ab.dcmlassets.length);
-    dcmlassets.writeByteArray(ab.dcmlassets);
+   
     
 
     var assetBundle: NativePointer | null = null;
@@ -145,7 +146,9 @@ Il2Cpp.perform(() => {
         var org = this.method("Start").invoke();
         console.log("Called");
         if (assetBundle == null) {
-            assetBundle = abloadfrommemory.call(null, dcmlassets);
+            fs.writeFileSync(unitycor.class("Application").method<Il2Cpp.String>("get_persistentDataPath").invoke().toString() + "/dcmlassets", new DataView(new Int8Array(ab.dcmlassets).buffer));
+            assetBundle = abloadfromfile.call(null, Memory.allocUtf8String(unitycor.class("Application").method<Il2Cpp.String>("get_persistentDataPath").invoke().toString() + "/dcmlassets"), 0 ,0);
+            
         }
         EditMainMenu();
     };
