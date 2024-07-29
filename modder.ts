@@ -1,5 +1,5 @@
 import "frida-il2cpp-bridge"
-import * as ab from "./dcmlassets.ts";
+const ab = require("./dcmlassets.js");
 
 Il2Cpp.perform(() => {
     var il2cpp = Il2Cpp.domain.assembly("Assembly-CSharp").image;

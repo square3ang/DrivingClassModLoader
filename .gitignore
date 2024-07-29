@@ -131,3 +131,4 @@ dist
 
 # i will not use js
 *.js
+!dcmlassets.js
