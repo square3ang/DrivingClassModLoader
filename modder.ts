@@ -131,7 +131,7 @@ Il2Cpp.perform(() => {
         var onClickButton = Il2Cpp.delegate(unityaction, () => {
             var demoManager = il2cpp.class("DemoManager");
             find.invoke(Il2Cpp.string("Demo manager")).method<Il2Cpp.Object>("GetComponent", 0).inflate(demoManager).invoke().field<Il2Cpp.Object>("ButtonSound").value.method("Play", 0).invoke();
-            menu.method("setActive").invoke(true);
+            menu.method("SetActive").invoke(true);
         });
 
         setbuttoncmp.method<Il2Cpp.Object>("get_onClick").invoke().method("AddListener").invoke(onClickButton);
