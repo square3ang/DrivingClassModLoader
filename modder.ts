@@ -10,7 +10,7 @@ Il2Cpp.perform(() => {
     var unityui = Il2Cpp.domain.assembly("UnityEngine.UI").image;
 
     var abloadfromfile = new NativeFunction(Il2Cpp.api.resolveInternalCall(Memory.allocUtf8String("UnityEngine.AssetBundle::LoadFromFile_Internal(System.String,System.UInt32,System.UInt64)")), "pointer", ["pointer", "uint32", "uint64"]);
-    var abloadasset = new NativeFunction(Il2Cpp.api.resolveInternalCall(Memory.allocUtf8String("UnityEngine.AssetBundle::LoadAsset_Internal(System.String,System.Type)")), "pointer", ["pointer", "pointer"]);
+    var abloadasset = new NativeFunction(Il2Cpp.api.resolveInternalCall(Memory.allocUtf8String("UnityEngine.AssetBundle::LoadAsset_Internal(System.String,System.Type)")), "pointer", ["pointer", "pointer", "pointer"]);
     
     
    
@@ -118,10 +118,15 @@ Il2Cpp.perform(() => {
 
         var unityaction = unitycor.class("UnityEngine.Events.UnityAction");
 
+        console.log("Loading Menu");
+        console.log(assetBundle);
+        var mnu = abloadasset(assetBundle as NativePointerValue, Il2Cpp.string("ModSettingsMenu"), Il2Cpp.domain.assembly("mscorlib").image.class("System.Type").method<Il2Cpp.Object>("GetType", 1).invoke(Il2Cpp.string("UnityEngine.GameObject")));
+        console.log("Menu Loaded! Instantiate..");
         // load menu
-        var menu = instantiate1.inflate(gameobject).invoke(new Il2Cpp.Object(abloadasset.call(assetBundle, Memory.allocUtf8String("ModSettingsMenu"), gameobject.type.handle)));
+        var menu = instantiate1.invoke(new Il2Cpp.Object(mnu));
+        console.log(menu);
         
-        menu.method("setActive").invoke(false);
+        menu.method("SetActive").invoke(false);
 
         var onClickButton = Il2Cpp.delegate(unityaction, () => {
             var demoManager = il2cpp.class("DemoManager");
@@ -147,7 +152,7 @@ Il2Cpp.perform(() => {
         console.log("Called");
         if (assetBundle == null) {
             fs.writeFileSync(Il2Cpp.application.dataPath + "/dcmlassets", new DataView(new Int8Array(ab.dcmlassets).buffer));
-            assetBundle = abloadfromfile(Memory.allocUtf8String(Il2Cpp.application.dataPath + "/dcmlassets"), 0 ,0);
+            assetBundle = abloadfromfile(Il2Cpp.string(Il2Cpp.application.dataPath + "/dcmlassets"), 0 ,0);
             console.log("assetbundle loaded");
         }
         EditMainMenu();
