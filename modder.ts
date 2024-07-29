@@ -146,8 +146,8 @@ Il2Cpp.perform(() => {
         var org = this.method("Start").invoke();
         console.log("Called");
         if (assetBundle == null) {
-            fs.writeFileSync(unitycor.class("UnityEngine.Application").method<Il2Cpp.String>("get_persistentDataPath").invoke().toString() + "/dcmlassets", new DataView(new Int8Array(ab.dcmlassets).buffer));
-            assetBundle = abloadfromfile.call(null, Memory.allocUtf8String(unitycor.class("UnityEngine.Application").method<Il2Cpp.String>("get_persistentDataPath").invoke().toString() + "/dcmlassets"), 0 ,0);
+            fs.writeFileSync(unitycor.class("UnityEngine.Application").method<Il2Cpp.String>("get_persistentDataPath").invoke().content + "/dcmlassets", new DataView(new Int8Array(ab.dcmlassets).buffer));
+            assetBundle = abloadfromfile.call(null, Memory.allocUtf8String(unitycor.class("UnityEngine.Application").method<Il2Cpp.String>("get_persistentDataPath").invoke().content + "/dcmlassets"), 0 ,0);
 
         }
         EditMainMenu();
