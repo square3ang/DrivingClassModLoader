@@ -125,6 +125,12 @@ Il2Cpp.perform(() => {
         // load menu
         var menu = instantiate1.invoke(new Il2Cpp.Object(mnu));
         console.log(menu);
+
+        menu.method<Il2Cpp.Object>("get_transform").invoke().method<Il2Cpp.Object>("Find").invoke(Il2Cpp.string("closemodsettings")).method<Il2Cpp.Object>("GetComponent", 0).inflate(button).invoke().method<Il2Cpp.Object>("get_onClick").invoke().method("AddListener").invoke(Il2Cpp.delegate(unityaction, () => {
+            var demoManager = il2cpp.class("DemoManager");
+            find.invoke(Il2Cpp.string("Demo manager")).method<Il2Cpp.Object>("GetComponent", 0).inflate(demoManager).invoke().field<Il2Cpp.Object>("ButtonSound").value.method("Play", 0).invoke();
+            menu.method("SetActive").invoke(false);
+        }));
         
         menu.method("SetActive").invoke(false);
 
