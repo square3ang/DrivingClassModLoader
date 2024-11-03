@@ -354,8 +354,8 @@ Il2Cpp.perform(() => {
             spriteRect.method(".ctor", 4).invoke(0, 0, texture.method("get_width").invoke(), texture.method("get_height").invoke());
             const spritePivot = vec2.alloc();
             spritePivot.method(".ctor", 2).invoke(0.5, 0.5)
-            const sprite = unitycor.class("UnityEngine.Sprite").method("Create", 3).invoke(texture, spriteRect, spritePivot);
-            __instance.field("HandleG").value[0] = sprite;
+            const sprite = unitycor.class("UnityEngine.Sprite").method<Il2Cpp.Object>("Create", 3).invoke(texture, spriteRect, spritePivot);
+            (__instance.field("HandleG").value as Il2Cpp.Array<Il2Cpp.Object>).set(0, sprite);
 
         };
 })
