@@ -13,7 +13,7 @@
   "dependencies": {
     "@types/frida-gum": "*",
     "@types/node": "*",
-    "frida-compile": "*",
+    "frida-compile": "^19.0.4",
     "frida-fs": "*",
     "frida-il2cpp-bridge": "*"
   },
