@@ -58,6 +58,12 @@ Il2Cpp.perform(() => {
 
         console.log("FJ: " + fj);
 
+        /*const titletxt = find.invoke(Il2Cpp.string("Name"));
+        const titletxtcmp = titletxt.method<Il2Cpp.Object>("GetComponent", 0).inflate(text).invoke();
+        const titletxt_txtset = titletxtcmp.method("set_text");
+        titletxt_txtset.invoke(Il2Cpp.string("감자자님한판해요"));*/
+
+
         const uo = unitycor.class("UnityEngine.Object");
         const instantiate2 = uo.method<Il2Cpp.Object>("Instantiate", 2);
         //const instantiate1 = uo.method<Il2Cpp.Object>("Instantiate", 1);
