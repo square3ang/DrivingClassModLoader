@@ -39,44 +39,6 @@ setTimeout(() => {
         }
 
         const text = unityui.class("UnityEngine.UI.Text");
-        const settxt = text.method<Il2Cpp.Object>("set_text");
-
-        let skipp = true;
-        //@ts-expect-error unnecessary error hide
-        settxt.implementation = function (this: Il2Cpp.Object, value: Il2Cpp.String) {
-            if (skipp) return;
-            this.method("set_text").invoke(value);
-        };
-
-        const UnityAction2 = unitycor.class("UnityEngine.Events.UnityAction`2").inflate(unitycor.class("UnityEngine.SceneManagement.Scene"), unitycor.class("UnityEngine.SceneManagement.LoadSceneMode"));
-        const callback = Il2Cpp.delegate(UnityAction2, () => {
-            console.log("[+] Scene loaded!");
-
-            // schedule
-
-            setTimeout(() => {
-                Il2Cpp.mainThread.schedule(() => {
-                    skipp = false;
-
-                    const uo = unitycor.class("UnityEngine.Object");
-
-                    const findObjectsOfType = uo.method<Il2Cpp.Array<Il2Cpp.Object>>("FindObjectsOfType", 0).overload("System.Type", "System.Boolean");
-                    console.log("FindObjectsOfType: " + findObjectsOfType);
-
-                    const arrr = findObjectsOfType.invoke(Il2Cpp.corlib.class("System.Type").method<Il2Cpp.Object>("GetType", 1).invoke(Il2Cpp.string("UnityEngine.UI.Text")), true);
-                    for (let i = 0; i < arrr.length; i++) {
-                        const obj = arrr.get(i);
-                        obj.method("set_text").invoke(Il2Cpp.string("정사각형"));
-                    }
-
-                    skipp = true;
-                });
-            }, 100);
-        });
-        sceneManager.method("add_sceneLoaded").invoke(callback);
-
-
-
 
 
 
@@ -106,14 +68,14 @@ setTimeout(() => {
 
             const uo = unitycor.class("UnityEngine.Object");
 
-            const findObjectsOfType = uo.method<Il2Cpp.Array<Il2Cpp.Object>>("FindObjectsOfType", 0).overload("System.Type", "System.Boolean");
+            /*const findObjectsOfType = uo.method<Il2Cpp.Array<Il2Cpp.Object>>("FindObjectsOfType", 0).overload("System.Type", "System.Boolean");
             console.log("FindObjectsOfType: " + findObjectsOfType);
 
             const arrr = findObjectsOfType.invoke(Il2Cpp.corlib.class("System.Type").method<Il2Cpp.Object>("GetType", 1).invoke(Il2Cpp.string("UnityEngine.UI.Text")), true);
             for (let i = 0; i < arrr.length; i++) {
                 const obj = arrr.get(i);
                 obj.method("set_text").invoke(Il2Cpp.string("정사각형"));
-            }
+            }*/
 
 
 
@@ -235,7 +197,6 @@ setTimeout(() => {
         }
 
         const start = il2cpp.class("DemoManager").method("Start");
-
         // Patch Start
         //@ts-expect-error unnecessary error hide
         start.implementation = function (this: Il2Cpp.Object) {

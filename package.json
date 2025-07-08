@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "frida -U Gadget -l mod.js",
-    "compile": "frida-compile modder.ts -o mod.js -c"
+    "compile": "frida-compile modder.ts -o mod.js -c -v"
   },
   "author": "",
   "license": "ISC",
